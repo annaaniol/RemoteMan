@@ -23,18 +23,18 @@ public class NavigationService {
         put("left_front", 1);
     }};
 
-    public static int countSignalStrength(double strengthPercentage) {
-        int finalStrength = (int)strengthPercentage * fullSignal / 100;
-        return finalStrength;
+    public static int countSignalPower(double strengthPercentage) {
+        int finalPower = (int)strengthPercentage * fullSignal / 100;
+        return finalPower;
     }
 
 
-    public static Byte[] getSignalFromValue(int val, double strengthPercentage) {
+    public static Byte[] getSignalFromValue(int val, double powerPercentage) {
         Byte[] signal = new Byte[motors+3];
 
         for(int i=0; i<signal.length; i++) signal[i] = 0;
         int id = 0;
-        byte signalStrengthByte = (byte)countSignalStrength(strengthPercentage);
+        byte signalStrengthByte = (byte)countSignalPower(powerPercentage);
         if(val > 360-36 || val <= 36) { // front
             id = vibrationMapping.get("front");
             signal[id] = signalStrengthByte;
