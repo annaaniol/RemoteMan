@@ -11,6 +11,7 @@ import com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar;
 public class MainActivity extends AppCompatActivity {
 
     int powerPercentage = 100;
+    int lastAngleValue = 0;
     ConnectionManager connectionManager = new ConnectionManager();
 
     @Override
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         circularPickerView.setValueChangedListener(
                 (val) -> {
                     System.out.println("new value: " + val);
+                    lastAngleValue = val;
                     connectionManager.sendAngleAndPower(val, powerPercentage);
                 }
         );
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView powerText = (TextView)findViewById(R.id.powerText);
                 powerText.setText(String.valueOf(val));
                 powerPercentage = val.intValue();
+                connectionManager.sendAngleAndPower(lastAngleValue, powerPercentage);
             }
         });
     }
